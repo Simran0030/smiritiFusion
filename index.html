@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>SmritiFusion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+    /* Light Theme */
+    --primary-light: #6c5ce7;
+    --secondary-light: #a29bfe;
+    --background-light: #f5f6fa;
+    --card-light: #ffffff;
+    --text-light: #2d3436;
+    --text-secondary-light: #666;
+    --accent-light: #fd79a8;
+    --success-light: #00b894;
+    --warning-light: #fdcb6e;
+    --error-light: #d63031;
+    
+    /* Dark Theme */
+    --primary-dark: #8c7ae6;
+    --secondary-dark: #706fd3;
+    --background-dark: #1e272e;
+    --card-dark: #2d3436;
+    --text-dark: #f5f6fa;
+    --text-secondary-dark: #b2bec3;
+    --accent-dark: #fd79a8;
+    --success-dark: #00cec9;
+    --warning-dark: #ffeaa7;
+    --error-dark: #ff7675;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+body.light-mode {
+    --primary: var(--primary-light);
+    --secondary: var(--secondary-light);
+    --background: var(--background-light);
+    --card: var(--card-light);
+    --text: var(--text-light);
+    --text-secondary: var(--text-secondary-light);
+    --accent: var(--accent-light);
+    --success: var(--success-light);
+    --warning: var(--warning-light);
+    --error: var(--error-light);
+}
+
+body.dark-mode {
+    --primary: var(--primary-dark);
+    --secondary: var(--secondary-dark);
+    --background: var(--background-dark);
+    --card: var(--card-dark);
+    --text: var(--text-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --accent: var(--accent-dark);
+    --success: var(--success-dark);
+    --warning: var(--warning-dark);
+    --error: var(--error-dark);
+}
+
+/* Base Responsive Adjustments */
+html {
+    font-size: 16px;
+}
+
+/* Common Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(0,0,0,0.15);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-error {
+    background-color: var(--error);
+    color: white;
+}
+
+.btn-success {
+    background-color: var(--success);
+    color: white;
+}
+
+.btn-warning {
+    background-color: var(--warning);
+    color: var(--text);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--text-secondary);
+    animation: fadeInDown 0.6s ease-out;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    min-height: 44px;
+}
+
+.logo i {
+    font-size: 2rem;
+    transition: transform 0.5s ease;
+}
+
+.logo:hover i {
+    transform: rotate(15deg) scale(1.1);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 50%;
+}
+
+.theme-toggle:hover::after {
+    opacity: 0.1;
+}
+
+.theme-toggle:hover {
+    transform: rotate(15deg);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.avatar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px var(--primary);
+}
+
+.avatar:hover::after {
+    opacity: 1;
+}
+
+/* Logout Button Styles */
+.logout-btn {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    min-height: 44px;
+}
+
+.logout-btn:hover {
+    color: var(--error);
+    background-color: rgba(214, 48, 49, 0.1);
+}
+
+.logout-btn i {
+    font-size: 1rem;
+}
+
+/* Dashboard Styles */
+.dashboard-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+    animation: fadeIn 0.8s ease-out;
+    position: relative;
+    display: inline-block;
+    word-break: break-word;
+}
+
+.dashboard-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+}
+
+.dashboard-title:hover::after {
+    transform: scaleX(1);
+}
+
+.dashboard-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    animation: fadeIn 1s ease-out;
+    word-break: break-word;
+}
+
+/* Modified templates grid for 3-2 centered layout */
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.template-card {
+    grid-column: span 2; /* Each card spans 2 columns by default */
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Center the last two cards */
+.template-card:nth-child(4) {
+    grid-column: 2 / span 2; /* Start at column 2, span 2 columns */
+}
+
+.template-card:nth-child(5) {
+    grid-column: 4 / span 2; /* Start at column 4, span 2 columns */
+}
+
+.template-card:nth-child(1) { animation-delay: 0.2s; }
+.template-card:nth-child(2) { animation-delay: 0.3s; }
+.template-card:nth-child(3) { animation-delay: 0.4s; }
+.template-card:nth-child(4) { animation-delay: 0.5s; }
+.template-card:nth-child(5) { animation-delay: 0.6s; }
+
+.template-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.template-image {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+}
+
+.template-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: transform 0.4s ease;
+}
+
+.template-image i {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    color: white;
+    opacity: 0.7;
+    transition: transform 0.4s ease;
+}
+
+.template-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+}
+
+.template-card:hover .template-image {
+    transform: scale(1.05);
+}
+
+.template-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.template-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.template-desc {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.template-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.template-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.how-to-play {
+    display: none;
+    margin-top: 1rem;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.template-card.show-instruction .how-to-play {
+    display: block;
+}
+
+.btn-details {
+    cursor: pointer;
+}
+
+/* Template specific colors */
+.template-1 .template-image { background: linear-gradient(135deg, #6c5ce7, #a29bfe); }
+.template-2 .template-image { background: linear-gradient(135deg, #00b894, #55efc4); }
+.template-3 .template-image { background: linear-gradient(135deg, #fd79a8, #ffb8c6); }
+.template-4 .template-image { background: linear-gradient(135deg, #fdcb6e, #ffeaa7); }
+.template-5 .template-image { background: linear-gradient(135deg, #0984e3, #74b9ff); }
+
+/* Auth Pages */
+.auth-container {
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transform: scale(0.95);
+    opacity: 0;
+    animation: zoomIn 0.5s ease-out forwards;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.05);
+    width: calc(100% - 2rem);
+}
+
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #6c5ce7, #fd79a8, #00b894, #fdcb6e, #0984e3);
+    background-size: 400% 400%;
+    animation: gradientBG 8s ease infinite;
+}
+
+.auth-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    word-break: break-word;
+}
+
+.auth-title i {
+    animation: bounce 2s infinite;
+}
+
+.auth-form .form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--text-secondary);
+    border-radius: 8px;
+    background-color: var(--background);
+    color: var(--text);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    min-height: 44px;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+    transform: translateY(-2px);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.remember-me input {
+    min-height: auto;
+}
+
+.auth-links {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.auth-links a {
+    color: var(--primary);
+    text-decoration: none;
+    position: relative;
+    font-weight: 500;
+}
+
+.auth-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.auth-links a:hover::after {
+    width: 100%;
+}
+
+/* Notification */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform: translateX(150%);
+    transition: transform 0.4s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    max-width: calc(100% - 40px);
+    word-break: break-word;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    background-color: var(--success);
+}
+
+.notification.error {
+    background-color: var(--error);
+}
+
+.notification.warning {
+    background-color: var(--warning);
+    color: var(--text);
+}
+
+/* Floating game icons */
+.floating-icons {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.floating-icon {
+    position: absolute;
+    opacity: 0.1;
+    font-size: 1.5rem;
+    animation: float 15s infinite linear;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));
+}
+
+/* Loading spinner */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+/* Mobile menu */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-back-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.2rem;
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 90%;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--card);
+    z-index: 100;
+    padding: 1.5rem;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--text-secondary);
+}
+
+.mobile-menu-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text);
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.mobile-menu-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--text-secondary);
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 44px;
+}
+
+.mobile-menu-link i {
+    width: 24px;
+    text-align: center;
+}
+
+.mobile-menu-link:hover {
+    color: var(--primary);
+}
+
+.mobile-menu-actions {
+    padding-top: 1rem;
+    border-top: 1px solid var(--text-secondary);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from { 
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    from { 
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to { 
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.1;
+    }
+    50% {
+        opacity: 0.15;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Page transition styles */
+.page {
+    position: absolute;
+    width: 100%;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.page.hidden {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.page.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .container {
+        padding: 1.25rem;
+    }
+    
+    .templates-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1000px;
+    }
+    
+    .template-card {
+        grid-column: span 2;
+    }
+    
+    .template-card:nth-child(4),
+    .template-card:nth-child(5) {
+        grid-column: span 2;
+    }
+    
+    .dashboard-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    html {
+        font-size: 15px;
+    }
+    
+    .templates-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 800px;
+    }
+    
+    .template-card {
+        grid-column: span 1;
+    }
+    
+    .template-card:nth-child(4),
+    .template-card:nth-child(5) {
+        grid-column: span 1;
+    }
+    
+    .dashboard-title {
+        font-size: 2rem;
+    }
+    
+    .template-image {
+        height: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+    
+    header {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .header-actions {
+        order: 1;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .logo span {
+        display: none;
+    }
+    
+    .mobile-menu-btn, .mobile-back-btn {
+        display: flex;
+    }
+    
+    .header-actions .user-profile span {
+        display: none;
+    }
+    
+    .logout-btn span {
+        display: none;
+    }
+    
+    .auth-container {
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+    
+    .dashboard-title {
+        font-size: 1.8rem;
+    }
+    
+    .dashboard-subtitle {
+        font-size: 1rem;
+    }
+    
+    .templates-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .template-card {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+    
+    .mobile-back-btn {
+        margin-right: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .templates-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    
+    .auth-container {
+        margin: 1.5rem auto;
+        padding: 1.25rem;
+    }
+    
+    .auth-title {
+        font-size: 1.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .remember-me {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .template-image {
+        height: 140px;
+    }
+    
+    .notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: calc(100% - 20px);
+    }
+}
+
+@media (max-width: 400px) {
+    .auth-container {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+    
+    .auth-title {
+        font-size: 1.3rem;
+    }
+    
+    .auth-form input {
+        padding: 0.7rem;
+    }
+    
+    .mobile-menu {
+        width: 85%;
+    }
+}
+
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .templates-grid {
+        grid-template-columns: repeat(6, 1fr);
+        max-width: 1400px;
+    }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .auth-container {
+        margin: 1rem auto;
+        padding: 1rem;
+    }
+    
+    .template-image {
+        height: 120px;
+    }
+    
+    .mobile-menu {
+        width: 70%;
+    }
+}
+
+/* Touch device specific styles */
+@media (pointer: coarse) {
+    .btn, .theme-toggle, .mobile-menu-link, .logout-btn {
+        min-height: 48px;
+    }
+    
+    .template-actions .btn {
+        padding: 1rem 1.2rem;
+    }
+    
+    input, select, textarea, button {
+        font-size: 16px; /* Prevent zoom on focus */
+    }
+}
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Floating game icons background -->
+    <div class="floating-icons" id="floating-icons"></div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-message">Welcome to स्मृति Fusion 🧠!</span>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                <span>SmritiFusion</span>
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-links">
+            <a href="#" class="mobile-menu-link" id="mobile-show-dashboard">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="#" class="mobile-menu-link" id="mobile-show-login">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+            <a href="#" class="mobile-menu-link" id="mobile-show-signup">
+                <i class="fas fa-user-plus"></i> Sign Up
+            </a>
+            <a href="#" class="mobile-menu-link">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+            <a href="#" class="mobile-menu-link">
+                <i class="fas fa-question-circle"></i> Help
+            </a>
+        </div>
+        <div class="mobile-menu-actions">
+            <button class="btn btn-primary w-100" id="mobile-logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+    
+    <!-- Auth Pages -->
+    <div id="login-page" class="page active">
+        <div class="auth-container">
+            <h1 class="auth-title"><i class="fas fa-gamepad"></i>  स्मृति Fusion</h1>
+            <form class="auth-form" id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-actions">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember me</label>
+                    </div>
+                    <a href="#" id="forgot-password">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" id="login-btn">
+                    <span id="login-btn-text">Login</span>
+                </button>
+                <div class="auth-links mt-3">
+                    <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="signup-page" class="page hidden">
+        <div class="auth-container">
+            <h1 class="auth-title"><i class="fas fa-gamepad"></i> Create Account</h1>
+            <form class="auth-form" id="signup-form">
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="Create a password (min 8 chars)" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input type="password" id="signup-confirm" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" id="signup-btn">
+                    <span id="signup-btn-text">Create Account</span>
+                </button>
+                <div class="auth-links mt-3">
+                    <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Dashboard Page -->
+    <div id="dashboard-page" class="page hidden">
+        <div class="container">
+            <header>
+                <button class="mobile-back-btn" id="mobile-back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="#" class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span> Welcome to स्मृति Fusion 🧠</span>
+                </a>
+                <div class="header-actions">
+                    <button class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                                        <div class="user-profile">
+                        <span id="welcome-user">Welcome player</span>
+                        <div class="avatar" id="user-avatar"></div>
+                    </div>
+                    <!-- Logout Button -->
+                    <button class="logout-btn" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="logout-text">Logout</span>
+                    </button>
+                </div>
+            </header>
+            
+            <h1 class="dashboard-title">SmritiFusion Library</h1>
+            <p class="dashboard-subtitle">Explore our collection of fun and challenging memory games</p>
+            
+            <div class="templates-grid">
+                <!-- Template 1 -->
+                <div class="template-card template-1">
+                    <div class="template-image">
+                        <img src="Working-with-adaptive-quizzes-A-beginners-guide.jpg" alt="Tech AI Quiz">
+                        <i class="fas fa-question"></i>
+                    </div>
+                    <div class="template-content">
+                        <h3 class="template-title">AI  TECH Quiz</h3>
+                        <p class="template-desc">Test your knowledge of technology and AI with this challenging quiz game. Answer questions correctly to unlock new levels and achievements.</p>
+                        <div class="template-actions">
+                            <a href="ai quiz/Quizer-master/index.html" class="btn btn-primary">Play Now</a>
+                         <button class="btn btn-secondary btn-details" onclick="toggleInstruction(this)">Details</button>
+                        </div>
+                        <div class="how-to-play">
+                <strong>How to Play:</strong>
+                <ul><p> <li>click "Play Now"</li>
+
+<li>Read each question</li>
+
+<li>Choose the right answer</li>
+
+<li>Get points for correct answers</li>
+
+<li>Try to finish all questions</li></p></ul>
+            </div>
+                        <div class="template-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>1.2K plays</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 2 -->
+                <div class="template-card template-2">
+                    <div class="template-image">
+                        <img src="flip kro.webp" alt="Tech Flip Match">
+                        <i class="fas fa-clone"></i>
+                    </div>
+                    <div class="template-content">
+                        <h3 class="template-title">AI TECH FLIP</h3>
+                        <p class="template-desc">Flip cards to find matching pairs of tech icons and terms. Improve your memory while learning about technology concepts.</p>
+                        <div class="template-actions">
+                            <a href="final/index.html" class="btn btn-primary">Play Now</a>
+                           <button class="btn btn-secondary btn-details" onclick="toggleInstruction(this)">Details</button>
+                        </div>
+                        <div class="how-to-play">
+                <strong>How to Play:</strong>
+               <ul> <p>  <li>Flip two cards at a time and try to match them.</li>
+<li>If they match, they stay flipped. If not, they flip back.</li>
+<li>Complete the board before time runs out!</li>
+<li>Select a board size to begin: </li></p></ul>
+            </div>
+                        <div class="template-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>2.5K plays</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 3 -->
+                <div class="template-card template-3">
+                    <div class="template-image">
+                        <img src="debug-1024x646.jpg" alt="Debug Game">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <div class="template-content">
+                        <h3 class="template-title">AI DEBUG FINDER</h3>
+                        <p class="template-desc">Find and fix bugs in code snippets before time runs out. Great for aspiring developers to practice debugging skills.</p>
+                        <div class="template-actions">
+                            <a href="debug/index.html" class="btn btn-primary">Play Now</a>
+                           <button class="btn btn-secondary btn-details" onclick="toggleInstruction(this)">Details</button>
+                        </div>
+                        <div class="how-to-play">
+                <strong>How to Play:</strong>
+                <ul><p> <li>Click “Play Now”.</li>
+
+<li>You’ll see code snippets with bugs.</li>
+
+<li>Find and fix the errors before time runs out.</li>
+
+<li>Each correct fix earns points.</li>
+
+<li>Beat all levels to become a Debug Master!</li></p></ul>
+            </div>
+                        <div class="template-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>850 plays</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span>4.6</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 4 -->
+                <div class="template-card template-4">
+                    <div class="template-image">
+                        <img src="roboat.png" alt="Memory Challenge">
+                        <i class="fas fa-memory"></i>
+                    </div>
+                    <div class="template-content">
+                        <h3 class="template-title">AI CODE BATTLEGROUND</h3>
+                        <p class="template-desc">Observe code patterns or logic puzzles displayed briefly on screen. Memorize them and reproduce them accurately to win. Each level increases in difficulty, pushing your programming memory and reflexes.</p>
+                        <div class="template-actions">
+                            <a href="game 5/index.html" class="btn btn-primary">Play Now</a>
+                           <button class="btn btn-secondary btn-details" onclick="toggleInstruction(this)">Details</button>
+                        </div>
+                        <div class="how-to-play">
+                <strong>How to Play:</strong>
+                <ul><p><ol>Each player submits their solution to the displayed code problem</ol>
+<li>Correct answers earn 10 points.</li>
+<li>The timer counts down from 60 seconds per challenge</li>
+<li>Use hints if you get stuck, but try to solve it yourself first!</li>
+<li>After both players submit (or time runs out), click Next Challenge</li>
+<li>Good luck and may the best coder win!</li></p></ul>
+            </div>
+                        <div class="template-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>500 plays</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span>4.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 5 -->
+                <div class="template-card template-5">
+                    <div class="template-image">
+                        <img src="cyber.png" alt="AI Trivia">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="template-content">
+                        <h3 class="template-title">AI CYBER HACKED </h3>
+                        <p class="template-desc">You're a virtual hacker racing against time. Solve code-based challenges, identify vulnerabilities, and break through AI defenses to uncover hidden secrets. Speed and logic are your tools!</p>
+                        <div class="template-actions">
+                            <a href="hacking game main finaal/hacking game main/index.html" class="btn btn-primary">Play Now</a>
+                            <button class="btn btn-secondary btn-details" onclick="toggleInstruction(this)">Details</button>
+                        </div>
+                        <div class="how-to-play">
+                <strong>How to Play:</strong>
+                <ul><p><li>Click "Play Now"</li>
+
+<li>Read each encryption or decryption question carefully</li>
+
+<li>Apply the correct logic or key to decode/encode</li>
+
+<li>Submit the right answer to move to the next level</li></p></ul>
+            </div>
+                        <div class="template-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>700 plays</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span>4.5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('theme-toggle');
+        const loginPage = document.getElementById('login-page');
+        const signupPage = document.getElementById('signup-page');
+        const dashboardPage = document.getElementById('dashboard-page');
+        const showSignup = document.getElementById('show-signup');
+        const showLogin = document.getElementById('show-login');
+        const loginBtn = document.getElementById('login-btn');
+        const loginBtnText = document.getElementById('login-btn-text');
+        const signupBtn = document.getElementById('signup-btn');
+        const signupBtnText = document.getElementById('signup-btn-text');
+        const floatingIcons = document.getElementById('floating-icons');
+        const notification = document.getElementById('notification');
+        const notificationMessage = document.getElementById('notification-message');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const overlay = document.getElementById('overlay');
+        const mobileShowDashboard = document.getElementById('mobile-show-dashboard');
+        const mobileShowLogin = document.getElementById('mobile-show-login');
+        const mobileShowSignup = document.getElementById('mobile-show-signup');
+        const welcomeUser = document.getElementById('welcome-user');
+        const userAvatar = document.getElementById('user-avatar');
+        const forgotPassword = document.getElementById('forgot-password');
+        const mobileBackBtn = document.getElementById('mobile-back-btn');
+        const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        // Game icons for floating background
+        const gameIcons = [
+            'fa-gamepad', 'fa-chess', 'fa-dice', 'fa-ghost', 'fa-headset',
+            'fa-trophy', 'fa-flag', 'fa-heart', 'fa-star', 'fa-crown',
+            'fa-bomb', 'fa-swords', 'fa-shield-alt', 'fa-robot', 'fa-dragon',
+            'fa-laptop-code', 'fa-microchip', 'fa-server', 'fa-keyboard', 'fa-memory',
+            'fa-bug', 'fa-code', 'fa-terminal', 'fa-file-code', 'fa-network-wired'
+        ];
+
+        function toggleInstruction(element) {
+            const card = element.closest('.template-card');
+            card.classList.toggle('show-instruction');
+        }
+        // User authentication state
+        let currentUser = null;
+        
+        // Create floating game icons
+        function createFloatingIcons() {
+            floatingIcons.innerHTML = '';
+            const iconCount = window.innerWidth < 768 ? 15 : 25;
+            
+            for (let i = 0; i < iconCount; i++) {
+                const icon = document.createElement('div');
+                icon.className = 'floating-icon';
+                icon.innerHTML = `<i class="fas ${gameIcons[Math.floor(Math.random() * gameIcons.length)]}"></i>`;
+                
+                // Random position
+                icon.style.left = `${Math.random() * 100}%`;
+                icon.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation duration and delay
+                icon.style.animationDuration = `${10 + Math.random() * 20}s`;
+                icon.style.animationDelay = `${Math.random() * 5}s`;
+                
+                // Random size
+                const size = 1 + Math.random();
+                icon.style.fontSize = `${size}rem`;
+                icon.style.opacity = 0.05 + Math.random() * 0.1;
+                
+                floatingIcons.appendChild(icon);
+            }
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'success') {
+            notification.className = `notification ${type}`;
+            notificationMessage.textContent = message;
+            
+            // Set appropriate icon
+            const icon = notification.querySelector('i');
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle';
+            } else if (type === 'warning') {
+                icon.className = 'fas fa-exclamation-triangle';
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Switch between pages with animation
+        function switchPages(currentPage, nextPage) {
+            currentPage.classList.remove('active');
+            currentPage.classList.add('hidden');
+            
+            setTimeout(() => {
+                nextPage.classList.remove('hidden');
+                nextPage.classList.add('active');
+                
+                // Recreate floating icons when switching to auth pages
+                if (nextPage === loginPage || nextPage === signupPage) {
+                    createFloatingIcons();
+                }
+                
+                // Show/hide back button on mobile
+                if (window.innerWidth < 768) {
+                    if (nextPage === dashboardPage) {
+                        mobileBackBtn.style.display = 'flex';
+                    } else {
+                        mobileBackBtn.style.display = 'none';
+                    }
+                }
+            }, 10);
+            
+            // Close mobile menu if open
+            closeMobileMenu();
+        }
+        
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Close mobile menu
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Initialize user session
+        function initUserSession(username, email) {
+            currentUser = { username, email };
+            welcomeUser.textContent = `Welcome, ${username}`;
+            userAvatar.textContent = username.charAt(0).toUpperCase();
+            
+            // Show logout button
+            logoutBtn.style.display = 'flex';
+            mobileLogoutBtn.style.display = 'block';
+            
+            // Save to localStorage if "Remember me" is checked
+            const rememberMe = document.getElementById('remember-me');
+            if (rememberMe && rememberMe.checked) {
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            }
+        }
+        
+        // Logout user
+        function logoutUser() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            welcomeUser.textContent = 'Welcome player';
+            userAvatar.textContent = '';
+            
+            // Hide logout buttons
+            logoutBtn.style.display = 'none';
+            mobileLogoutBtn.style.display = 'none';
+            
+            // Clear form fields
+            if (loginForm) {
+                loginForm.reset();
+            }
+            if (signupForm) {
+                signupForm.reset();
+            }
+            
+            // Switch to login page if currently on dashboard
+            if (dashboardPage.classList.contains('active')) {
+                switchPages(dashboardPage, loginPage);
+            }
+            
+            showNotification('You have been logged out successfully', 'success');
+            
+            // Close mobile menu if open
+            closeMobileMenu();
+        }
+        
+        // Check for saved user session
+        function checkSavedSession() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                initUserSession(user.username, user.email);
+                switchPages(loginPage, dashboardPage);
+            } else {
+                // Hide logout buttons if no user is logged in
+                logoutBtn.style.display = 'none';
+                mobileLogoutBtn.style.display = 'none';
+            }
+        }
+        
+        // Initialize - show login page first
+        createFloatingIcons();
+        checkSavedSession();
+        
+        // Show welcome notification after 1 second
+        setTimeout(() => {
+            showNotification('Welcome to SmritiFusion! Explore our memory games collection.', 'success');
+        }, 1000);
+        
+        // Theme Toggle
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+            
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.body.classList.remove('light-mode');
+            themeToggle.querySelector('i').className = 'fas fa-sun';
+        }
+        
+        // Auth Page Switching
+        showSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchPages(loginPage, signupPage);
+        });
+        
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchPages(signupPage, loginPage);
+        });
+        
+        // Mobile back button
+        mobileBackBtn.addEventListener('click', () => {
+            if (dashboardPage.classList.contains('active')) {
+                switchPages(dashboardPage, loginPage);
+            }
+        });
+        
+        // Mobile menu navigation
+        mobileShowDashboard.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentUser) {
+                switchPages(loginPage, dashboardPage);
+                switchPages(signupPage, dashboardPage);
+            } else {
+                showNotification('Please login first', 'error');
+            }
+        });
+        
+        mobileShowLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchPages(dashboardPage, loginPage);
+            switchPages(signupPage, loginPage);
+        });
+        
+        mobileShowSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchPages(dashboardPage, signupPage);
+            switchPages(loginPage, signupPage);
+        });
+        
+        // Login functionality
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Simple validation
+            if (!email || !password) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+            
+            // Add loading animation
+            loginBtn.disabled = true;
+            loginBtnText.innerHTML = '<div class="spinner"></div>';
+            
+            // Simulate API call
+            setTimeout(() => {
+                const username = email.split('@')[0];
+                initUserSession(username, email);
+                
+                switchPages(loginPage, dashboardPage);
+                loginBtn.disabled = false;
+                loginBtnText.textContent = 'Login';
+                
+                showNotification('Login successful! Enjoy the games.', 'success');
+            }, 1500);
+        });
+        
+        // Signup functionality
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirm = document.getElementById('signup-confirm').value;
+            
+            // Simple validation
+            if (!username || !email || !password || !confirm) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+            
+            if (password !== confirm) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+            
+            if (password.length < 8) {
+                showNotification('Password must be at least 8 characters', 'error');
+                return;
+            }
+            
+            // Add loading animation
+            signupBtn.disabled = true;
+            signupBtnText.innerHTML = '<div class="spinner"></div>';
+            
+            // Simulate API call
+            setTimeout(() => {
+                initUserSession(username, email);
+                
+                switchPages(signupPage, dashboardPage);
+                signupBtn.disabled = false;
+                signupBtnText.textContent = 'Create Account';
+                
+                showNotification('Account created successfully!', 'success');
+            }, 1500);
+        });
+        
+        // Forgot password
+        forgotPassword.addEventListener('click', (e) => {
+            e.preventDefault();
+            showNotification('Password reset link sent to your email (simulated)', 'warning');
+        });
+        
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+        
+        // Logout functionality
+        logoutBtn.addEventListener('click', logoutUser);
+        mobileLogoutBtn.addEventListener('click', logoutUser);
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.mobile-menu-link').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+        
+        // Handle viewport changes
+        function handleResize() {
+            createFloatingIcons();
+            
+            // Show/hide back button based on screen size and current page
+            if (window.innerWidth < 768) {
+                if (dashboardPage.classList.contains('active')) {
+                    mobileBackBtn.style.display = 'flex';
+                } else {
+                    mobileBackBtn.style.display = 'none';
+                }
+            } else {
+                mobileBackBtn.style.display = 'none';
+            }
+        }
+        
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        
+        // Add pulse animation to dashboard title on hover
+        const dashboardTitle = document.querySelector('.dashboard-title');
+        dashboardTitle.addEventListener('mouseenter', () => {
+            dashboardTitle.style.animation = 'pulse 1.5s infinite';
+        });
+        
+        dashboardTitle.addEventListener('mouseleave', () => {
+            dashboardTitle.style.animation = '';
+        });
+        
+        // Prevent zoom on input focus on mobile
+        document.addEventListener('touchstart', function() {}, {passive: true});
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Hacking Challenge</title>
+  <link rel="stylesheet" href="hacke.css">
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+  <div class="container">
+    <div id="landingPage" class="landing">
+      <h1>🕶️ HACK THE CIPHER 🕶️</h1>
+      <div id="instructions">
+        <p>Welcome, agent. You'll face 3 digital security challenges:</p>
+        <ul>
+          <li><b>Caesar Cipher:</b> Pick the correct encrypted message.</li>
+          <li><b>Regex Filter:</b> Enter a username <b>without</b> the word "admin".</li>
+          <li><b>Cipher Pairs:</b> Match cipher names to their symbols. </li>
+        </ul>
+        <p>Each challenge has a <b>60-second timer</b>. Score all 3 to join the leaderboard. Good luck!</p>
+      </div>
+      <button id="startButton" onclick="startGame()">🚀 START HACKING</button>
+    </div>
+
+    <div id="game" class="hidden"></div>
+    <div id="leaderboard" class="leaderboard hidden">
+      <h2>🏆 Leaderboard</h2>
+      <button onclick="clearLeaderboard()" style="float: right;">Clear</button>
+      <div id="scores"></div>
+      <button onclick="show('landingPage')">🔄 Play Again</button>
+    </div>
+  </div>
+
+  <script src="mach.js"></script>
+</body>
+</html>
+
+
+
+
+
+
