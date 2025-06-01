@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Master: Dual Challenge</title>
+
+  <!-- Styles and Fonts -->
+  <link rel="shortcut icon" type="image/jpg" href="Images/fevicon.PNG" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="happy.js" defer></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Orbitron:wght@900&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Floating numbers container -->
+  <div id="floating-numbers"></div>
+
+  <!-- Background Music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="background.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Game Controls -->
+  <div class="game-controls">
+    <button id="quitBtn">↩ Quit</button>
+    <button id="musicBtn">🔈 Mute</button>
+  </div>
+
+  <!-- Game Header -->
+  <header>
+    <h1 id="main-heading">MEMORY MASTER</h1>
+    <div id="game-info">
+      <div id="phase-indicator">Phase: <span>1/2</span></div>
+      <div id="score-display">Score: <span>0</span></div>
+      <div id="time">Time: 00:00</div>
+      <div id="moves">Moves: 0</div>
+    </div>
+  </header>
+
+  <!-- Game Board -->
+  <main>
+    <center>
+      <table cellspacing="0"></table>
+    </center>
+  </main>
+
+  <!-- Instruction Overlay -->
+  <div id="ol"></div>
+
+  <!-- Message Popup -->
+  <div id="message-box"></div>
+
+  <!-- Leaderboard Popup -->
+  <div id="leaderboard-modal" class="modal">
+    <div class="modal-content">
+      <h2>🏆 Leaderboard 🏆</h2>
+      <div id="leaderboard-results"></div>
+      <button onclick="closeLeaderboard()">Close</button>
+    </div>
+  </div>
+
+  <!-- Phase Transition Screen -->
+  <div id="phase-transition" class="modal">
+    <div class="modal-content">
+      <h2>Phase Complete!</h2>
+      <div id="phase-results"></div>
+      <button onclick="startNextPhase()">Continue</button>
+    </div>
+  </div>
+  
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const container = document.getElementById("floating-numbers");
+
+  function createFloatingNumber() {
+    const number = document.createElement("div");
+    number.classList.add("floating-number");
+    number.textContent = Math.floor(Math.random() * 100); // Random number 0-99
+    number.style.left = Math.random() * 100 + "vw"; // Random horizontal position
+    number.style.animationDuration = (6 + Math.random() * 5) + "s"; // Random speed
+    number.style.fontSize = (16 + Math.random() * 16) + "px"; // Vary font size
+    container.appendChild(number);
+
+    setTimeout(() => { number.remove(); // Clean up after animation
+    }, 12000);
+  }
+
+  // Generate floating numbers continuously
+  setInterval(createFloatingNumber, 300);
+});
+</script>
+
+ 
+</body>
+</html>
